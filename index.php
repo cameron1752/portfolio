@@ -56,21 +56,25 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Cam Knickerbocker Design</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
     <script src="main.js"></script>
 </head>
+<!-- title image and text -->
 <body>
     <div class="pimg1">
         <div class="ptext">
-            <span class="border">
-                Cam Knickerbocker
-                full stack web developer
-            </span>
+            <div class="test">
+                <span class="border" >
+                    Cam Knickerbocker
+                    full stack developer
+                </span>
+            </div>
         </div>
     </div>
 
+    <!-- about section -->
     <section class="section section-about">
         <h2>what I do</h2>
         <p>
@@ -79,6 +83,7 @@
         </p>
     </section>
 
+    <!-- work showcase and image -->
     <div class="pimg2">
             <div class="ptext">
                 <span class="border">
@@ -89,9 +94,32 @@
     
         <section class="section section-projects">
             <h2>check it check it check it out</h2>
-            <p>
-                When I have a project to show, this is where it will be.  Sit tight. 
-            </p>
+            <!-- project card -->
+            <div class="project">
+                <!-- website image -->
+                <img src="/images/PCB.PNG" alt="Avatar" class="image">
+                <!-- on hover effect -->
+                <div class="overlay">
+                    <p class="icon">Built with HTML and CSS.  My goal was to increase brand awareness and create a platform to reach their customers.  
+                    <a href="https://www.paulscustombutchering.com" target="_blank">Visit the site here</a>
+                    </p>    
+                </div>
+            </div>
+
+            <!-- logo's for social media -->
+            <div class="logos">
+                <!-- link for github -->
+                <a href="https://github.com/cameron1752" target="_blank">
+                    <!-- github image -->
+                    <img src="/images/GitHub-Mark-32px.png" alt="github" class="icons">
+                </a>
+                
+                <!-- link for linkedin -->
+                <a href="https://www.linkedin.com/in/camknickerbocker/" target="_blank">
+                    <!-- linkedin image -->
+                    <img src="/images/LI-In-Bug.png" alt="linkedin" class="icons">
+                </a>
+            </div>
         </section>
 
         <div class="pimg3">
@@ -129,9 +157,11 @@
 
         <div class="pimg1">
             <div class="ptext">
-                <span class="border">
-                    Cam Knickerbocker web design
-                </span>
+                <div class="test">
+                    <span class="border">
+                        Cam Knickerbocker design
+                    </span>
+                </div>
             </div>
         </div>    
 </body>
