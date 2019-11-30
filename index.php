@@ -105,7 +105,15 @@
                     </p>    
                 </div>
             </div>
-
+            <div class="project">
+                <img src="/images/portB.PNG" alt="Avatar" class="image">
+                <div class="overlay">
+                  <p class="icon">Built with HTML, and CSS using Sass 3, this is a second portfolio design with some cool animations.  One of my first designs. 
+                    <a href="https://www.camknickerbocker.com/portB.html" target="_blank">Visit the site here</a>
+                </p>
+                
+                </div>
+            </div>
             <!-- logo's for social media -->
             <div class="logos">
                 <!-- link for github -->

@@ -111,6 +111,8 @@ textarea{
 /* Container needed to position the overlay. Adjust the width as needed */
 .project {
     margin: auto;
+    margin-right: 5px;
+    display: inline-block;
     position: relative;
     width: 100%;
     max-width: 400px;
