@@ -114,6 +114,15 @@
                 
                 </div>
             </div>
+            <div class="project">
+                    <img src="/images/discordBot.PNG" alt="Avatar" class="image">
+                    <div class="overlay">
+                        <p class="icon">I built this bot for fun one weekend in javascript using discord.js.  Hosted on AWS server. 
+                            <a href="/discordBot.html" >Learn more here</a>
+                        </p>
+                    
+                    </div>
+                </div>
             <!-- logo's for social media -->
             <div class="logos">
                 <!-- link for github -->
@@ -128,6 +137,7 @@
                     <img src="/images/LI-In-Bug.png" alt="linkedin" class="icons">
                 </a>
             </div>
+            
         </section>
 
         <div class="pimg3">
