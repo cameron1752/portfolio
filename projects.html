@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>More Work</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+	  <link href="resumeCSS.css" rel="stylesheet">
+<!--  animation library  -->
+	 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  </head>
+
+  <body>
+<!-- Big boy image with the name and stuff on it -->
+    <div class="jumbotron jumbotron-fluid text-center">
+      <h1 class="display-4">Additional Work</h1>
+    </div>
+
+
+    <div class="container">
+
+<div data-aos="fade-up"
+   data-aos-duration="500"
+   data-aos-easing="ease-in"
+   data-aos-mirror="true"
+   data-aos-once="false"
+   data-aos-anchor-placement="top-center"> <!--start transition-->
+
+   <div class="row text-center"> <!--label for projects-->
+      <div class="col-lg-6 offset-lg-3">Projects </div>
+   </div> <!--end projects label-->
+
+   <hr>
+   <br>
+</div> <!--end transition-->
+   
+<div data-aos="fade-up"
+   data-aos-duration="500"
+   data-aos-easing="ease-in"
+   data-aos-mirror="true"
+   data-aos-once="false"> <!--start transition-->
+<!-- buttons foor the filtering -->
+<div id="myBtnContainer">
+  <button class="btnFil active" onclick="filterSelection('all')"> Show all</button>
+  <button class="btnFil" onclick="filterSelection('java')"> Java</button>
+  <button class="btnFil" onclick="filterSelection('access')"> Microsoft Access</button>
+  <button class="btnFil" onclick="filterSelection('C++')"> C++</button>
+  <button class="btnFil" onclick="filterSelection('script')"> JavaScript</button>
+</div>
+<br>
+   
+   <div class="container"> <!-- some container (tbh I forget)-->
+      <div class="row" > <!--row of cards-->
+
+        
+
+        <div class="col-md-4 filterDiv java access">
+          <!-- <div class="col-md-4"> column -->
+              <div class="card"> <!-- card -->
+                <img class="card-img-top" src="projects/bg-bankapp.png"  width="380px" height="180px" alt="Bank application image"> <!-- image -->
+                <div class="card-body"> <!-- card body -->
+                    <h4 class="card-title">Bank Application</h4> <!-- title -->
+                    <!-- additional text -->
+                    <p class="card-text">Example bank application built with JSP's, Java, and a Microsoft Access Database.  The web pages were built with Bootstrap.</p>
+                    <p style="display:inline; border-style:solid; padding: 1px; border-radius: 5px; border-color:aqua; background-color:aqua; color:black;">Java</p>  <p style="display:inline; border-style:solid; border-radius: 5px;padding: 1px; border-color:gold; background-color: gold; color:black;">Microsoft Access</p>
+                    <br>
+                    <br>
+                    <a href="bankApp.html" class="btn btn-primary">Learn More</a> <!-- button with link to page -->
+                </div> <!-- end card body-->
+              </div> <!-- end card-->
+              <br>
+          </div> <!--end column-->
+        
+        
+          <div class="col-md-4 filterDiv C++"> <!-- column -->
+            <div class="card"> <!-- card -->
+                <img class="card-img-top" src="projects/bg-roulette.png" width="380px" height="180px" alt="roulette image"> <!-- image -->
+                <div class="card-body"> <!-- card body -->
+                  <h4 class="card-title">Roulette Application</h4> <!-- title -->
+                  <!-- additional text -->
+                  <p class="card-text">C++ Roulette Spinner Application with a custom built testing suite to make sure it works!</p>
+                  <p style="display:inline; border-style:solid; padding: 1px; border-radius: 5px; border-color:red; background-color: red; color:black;">C++</p>
+                  <br>
+                  <br>
+                  <a href="rouletteApp.html" class="btn btn-primary">Learn More</a> <!-- button with link to page -->
+                </div> <!-- end card body-->
+            </div> <!-- end card-->
+            <br>
+          </div> <!-- end column-->
+        
+         
+         <div class="col-md-4 filterDiv java access"> <!-- column -->
+            <div class="card">  <!-- card -->
+               <img class="card-img-top" src="projects/bg-integration.png" width="380px" height="180px" alt="integration image"> <!-- image -->
+               <div class="card-body"> <!-- card body -->
+                  <h4 class="card-title">Student Record System</h4> <!-- title -->
+                  <!-- additional text -->
+                  <p class="card-text">Student record management system built in Java with a Microsoft Access Database to store student details.</p>
+                  <p style="display:inline; border-style:solid; padding: 1px; border-radius: 5px; border-color:aqua; background-color:aqua; color:black;">Java</p>  <p style="display:inline; border-style:solid; border-radius: 5px;padding: 1px; border-color:gold; background-color: gold; color:black;">Microsoft Access</p>
+                  <br><br>
+                  <a href="studentRecord.html" class="btn btn-primary">Learn More</a> <!-- button with link to page -->
+               </div> <!-- end card body-->
+            </div> <!-- end card-->
+            <br>
+         </div> <!-- end column-->
+         
+         <div class="col-md-4 filterDiv java"> <!-- column -->
+            <div class="card"> <!-- card -->
+               <img class="card-img-top" src="projects/bg-elevator.png" width="380px" height="180px" alt="Elevator image"> <!-- image -->
+               <div class="card-body"> <!-- card body -->
+                  <h4 class="card-title">Multithreaded Elevator</h4> <!-- title -->
+                  <!-- additional text -->
+                  <p class="card-text" >A multithreaded elevator simulator built in Java.</p>
+                  <br>
+                  <p style="display:inline; border-style:solid; padding: 1px; border-radius: 5px; border-color:aqua; background-color:aqua; color:black;">Java</p>
+                  <br><br>
+                  <a href="elevatorApp.html" class="btn btn-primary">Learn More</a> <!-- button with link to page -->
+               </div> <!-- end card body-->
+            </div> <!-- end card-->
+            <br>
+         </div> <!-- end column-->
+
+         <div class="col-md-4 filterDiv java">
+          <!-- column -->
+              <div class="card"> <!-- card -->
+                <img class="card-img-top" src="projects/bg-weather.png" width="380px" height="180px" alt="Bank application image"> <!-- image -->
+                <div class="card-body"> <!-- card body -->
+                    <h4 class="card-title">Weather Application</h4> <!-- title -->
+                    <!-- additional text -->
+                    <p class="card-text">Example weather application built with Java.  Front end was built using JavaFX.</p>
+                    <br>
+                    <p style="display:inline; border-style:solid; padding: 1px; border-radius: 5px; border-color:aqua; background-color:aqua; color:black;">Java</p> 
+                    <br>
+                    <br>
+                    <a href="weatherApp.html" class="btn btn-primary">Learn More</a> <!-- button with link to page -->
+                </div> <!-- end card body-->
+              </div> <!-- end card-->
+              <br>
+          <!-- </div> end column -->
+        </div> 
+        
+        <div class="col-md-4 filterDiv script"> <!-- column -->
+          <div class="card"> <!-- card -->
+             <img class="card-img-top" src="projects/bg-discordBot.png" width="380px" height="180px" alt="Discord Bot"> <!-- image -->
+             <div class="card-body"> <!-- card body -->
+                <h4 class="card-title">Discord Bot</h4> <!-- title -->
+                <!-- additional text -->
+                <p class="card-text" >A discord bot built in Javascript and hosted on AWS.</p>
+                <br>
+                <p style="display:inline; border-style:solid; padding: 1px; border-radius: 5px; border-color:green; background-color:green; color:black;">JavaScript</p>
+                <br><br>
+                <a href="discordBot.html" class="btn btn-primary">Learn More</a> <!-- button with link to page -->
+             </div> <!-- end card body-->
+          </div> <!-- end card-->
+          <br>
+       </div> <!-- end column-->
+         
+      </div> <!-- end row-->
+   </div> <!-- end container-->
+</div> <!--end transition-->
+
+
+
+<hr>
+<div class="row">
+    <div class="text-center col-lg-6 offset-lg-3">
+      <h4>Thanks for stopping by! </h4>
+      <p>Copyright &copy; 2019 &middot; All Rights Reserved &middot; <a href="index.html" >Cam Knickerbocker Designs</a></p>
+    </div>
+</div>
+   </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+    <script src="js/jquery-3.4.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed --> 
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-4.4.1.js"></script>
+	    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+      AOS.init();
+  </script>
+  </body>
+</html>
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+<!-- WRAP ELEMENTS TO SORT IN DIV CLASS='filterDiv ITEM' -->
+
+    <!-- java for the filtering -->
+    <script>filterSelection("all")
+   function filterSelection(c) {
+     var x, i;
+     x = document.getElementsByClassName("filterDiv");
+     if (c == "all") c = "";
+     // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+     for (i = 0; i < x.length; i++) {
+       w3RemoveClass(x[i], "show");
+       if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+     }
+   }
+   
+   // Show filtered elements
+   function w3AddClass(element, name) {
+     var i, arr1, arr2;
+     arr1 = element.className.split(" ");
+     arr2 = name.split(" ");
+     for (i = 0; i < arr2.length; i++) {
+       if (arr1.indexOf(arr2[i]) == -1) {
+         element.className += " " + arr2[i];
+       }
+     }
+   }
+   
+   // Hide elements that are not selected
+   function w3RemoveClass(element, name) {
+     var i, arr1, arr2;
+     arr1 = element.className.split(" ");
+     arr2 = name.split(" ");
+     for (i = 0; i < arr2.length; i++) {
+       while (arr1.indexOf(arr2[i]) > -1) {
+         arr1.splice(arr1.indexOf(arr2[i]), 1);
+       }
+     }
+     element.className = arr1.join(" ");
+   }
+   
+   // Add active class to the current control button (highlight it)
+   var btnContainer = document.getElementById("myBtnContainer");
+   var btns = btnContainer.getElementsByClassName("btnFil");
+   for (var i = 0; i < btns.length; i++) {
+     btns[i].addEventListener("click", function() {
+       var current = document.getElementsByClassName("active");
+       current[0].className = current[0].className.replace(" active", "");
+       this.className += " active";
+     });
+   }</script>

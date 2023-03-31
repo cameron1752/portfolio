@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Record System</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+	<link href="resumeCSS.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <!--jumbotron start-->
+    <div class="jumbotron jumbotron-fluid text-center">
+        <h1 class="display-4">Student Record System</h1>
+        <p class="lead">Using Java, Microsoft Access, and a few libraries I built a student record management system.&nbsp; &nbsp;</p>
+        <hr class="my-4">
+        <p>Visit the github page! <a href="https://github.com/cameron1752/StudentRecordSystem" target="_blank"><img src="projects/GitHub-Mark-32px.png" alt=""></a></p> 
+    </div>
+        
+    <!--PROJECT DESCRPTION GOES HERE PLEASE-->
+    <div class="container">
+        <div class="row text-center">
+            <div class="col">
+            <p>I built a student record system that allows for administrators to manage the students enrolled in their school.  They can add students and search to 
+              remove students from the system.  The data is stored in a Microsoft Access Database and can be backed up and exported to an XML file. 
+                On launch, the system reads the information into the system from the database and populates the table on screen and populates the tables on screen. 
+                For this project, I utilized the <a href="https://www.codejava.net/java-se/jdbc/java-jdbc-example-connect-to-microsoft-access-database" target="_blank">Ucanaccess</a> library to connect my java code to the access database and for the charts and on screen visuals, I used 
+                the <a href="https://www.jfree.org/jfreechart/">JFreeChart</a> library.  The front end of the system is managed using Java Swing components.</p>
+            <br>
+            <img src="projects/bg-integration.png" style="border:solid;" width="600px" height="400px" alt="">
+            <br>
+            <br>
+            <p> The database was manipulated using a database manager class.  This class was a public class used by the front end to load records into the system, 
+              enter records into the database, and reset the database for loading.  Within the database class, the createTable() function was responsible for 
+              connecting to the database and creating a new table for student records to be inserted.  Before this function is called the dropTable() function must 
+              be called to delete the previous Student table. When records need to be inserted into the database, the insertRecord(StudentRecord student) method is 
+              called.  Here the student object is accessed to pull the first name, last name, degree status, and degree of study and parsed into a SQL string execute 
+              in the database.  Similar to insertion, when a student is searched in the system to be removed from the database the deleteRecord(StudentRecord student) 
+              method is called.  The student is then deleted from the database on the condition that the first name, last name, degree status, and area of study match 
+              a record in the tables. </p>
+            <br>
+            <p>The student record java class was used for storing student details in the database.  After being read from the XML file the values are stored in a 
+              StudentRecord object, which has a method to return the value of the StudentRecord in the form of a string to be parsed into the database.   
+              Standard getters and setters are present in the class to access a specific student record object.  </p>
+            <br>
+            <p>On load, the application calls on the DatabaseManager class to delete the table currently in database and replace it with a fresh version.  
+              After the table is created the front end reads in the XML backup to populate the table in the database.  The system iterates over the values in the 
+              XML file and inserts them into the table using the DatabaseManager class.  After the values in the table are loaded, I call a function to initiate 
+              the bar chart and the circle chart on screen.  These two functions count the records from the student list on the screen and add their values to the 
+              charts and update to the screen.   When adding or deleting a user, on the button clicks the values typed by the end user and parses the information 
+              for illegal characters or missing fields.  On successful parsing, the addition button calls the insertRecord(StudentRecord student) and passes in the 
+              new student to be added.  With a successful parsing, the deletion button calls the deleteRecord(StudentRecord student) method to begin deleting the 
+              record if found in the database.  </p>
+        </div>
+      </div>
+       <br>
+       <hr>
+       
+ 
+       
+       
+       <div class="row">
+            <div class="text-center col-lg-6 offset-lg-3">
+                <h4>Thanks for reading! </h4>
+                <p>Copyright &copy; 2020 &middot; All Rights Reserved &middot;<a href="index.html" >Cam Knickerbocker Designs</a></p>
+            </div>
+       </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+    <script src="js/jquery-3.4.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed --> 
+    <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap-4.4.1.js"></script>
+  </body>
+</html>

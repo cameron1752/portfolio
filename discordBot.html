@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Discord Bot</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+	<link href="resumeCSS.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <!--jumbotron start-->
+    <div class="jumbotron jumbotron-fluid text-center">
+        <h1 class="display-4">Discord Bot</h1>
+        <p class="lead">Discord bot built in JavaScript using Node.JS and Discord.JS.  The bot is hosted on an AWS server.&nbsp; &nbsp;</p>
+        <hr class="my-4">
+        <p>Visit the github page! <a href="https://github.com/cameron1752/toxicbot" target="_blank"><img src="projects/GitHub-Mark-32px.png" alt=""></a></p> 
+    </div>
+        
+    <!--PROJECT DESCRPTION GOES HERE PLEASE-->
+    <div class="container">
+        <div class="row text-center">
+            <div class="col">
+            <p>I built a discord bot using JavaScript, <a href="https://nodejs.org/en/">Node.JS</a>, and <a href="https://discord.js.org/#/">Discord.js</a>.  The bot is hosted on an Ubuntu server and configured using <a href="https://www.npmjs.com/package/forever">forever</a> 
+                 With the node.js and discord.js packages in the directory you can start the bot.js file by requiring the discord package.  After declaring that reference, 
+                 you can create a new bot client object and set the token received from the discord developer portal.  The bot will need to login using the provided token 
+                 before being able to interact with the discord channel.  After I added these lines to my program I added a line to include output when the bot starts and 
+                 set the prefix to call the bots functionality.  Add it to your server <a href="https://discord.com/api/oauth2/authorize?client_id=515265108163952647&permissions=8&scope=bot">here</a></p>
+            <br>
+            <img src="projects/bg-discordBot.png" style="border:solid;"  alt="">
+            <br>
+            <br>
+            <p>Receiving the messages from the discord chat is easy, check the incoming messages for your prefix.  I split the input messages by spaces and always checked the 
+                first argument of the returned array.  This would provide a consistent way to ensure it was my bot in the discord channel that is being called.  After I 
+                determined if the call to the bot was for my bot, I used the rest of the returned array to determine which function the bot was being called for.  I split 
+                these into a switch case statement based on the second array argument to trigger specific functions.    </p>
+      
+       <br>
+       <hr>
+       
+       <div class="row">
+            <div class="col">
+                <h4>Thanks for reading! </h4>
+                <p>Copyright &copy; 2020 &middot; All Rights Reserved &middot; <a href="index.html" >Cam Knickerbocker Designs</a></p>
+            </div>
+       </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+    <script src="js/jquery-3.4.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed --> 
+    <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap-4.4.1.js"></script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Multithreaded Elevator Application</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+	<link href="resumeCSS.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <!--jumbotron start-->
+    <div class="jumbotron jumbotron-fluid text-center">
+        <h1 class="display-4">Multithreaded Elevator Application</h1>
+        <p class="lead">Using Java I bulit an elevator simulator with 5 passengers riding throughout the building.&nbsp; &nbsp;</p>
+        <hr class="my-4">
+        <p>Visit the github page! <a href="https://github.com/cameron1752/ElevatorApp" target="_blank"><img src="projects/GitHub-Mark-32px.png" alt=""></a></p> 
+    </div>
+        
+    <!--PROJECT DESCRPTION GOES HERE PLEASE-->
+    <div class="container">
+        <div class="row text-center">
+            <div class="col">
+            <p>The elevator application is a multithreaded program written in Java to simulate people moving amongst a building, all using the elevator.  
+              On start the elevator idles at floor 5 of the building until it is called by a user.  Once the elevator is called it begins to travel to where it 
+              was called so the passenger can enter.  After the passenger is on the elevator they select the button for the floor they wish to travel to and the 
+              elevator takes them to the floor so they can get off.  </p>
+            <br>
+            <img src="projects/bg-elevator.png" style="border:solid;" width="600px" height="400px" alt="">
+            <br>
+            <br>
+            <p>The algorithm used for the elevator considers destination floors and the floor the elevator is called from to choose the shortest path for all 
+              passengers of the elevator.  The elevator utilizes a queue system to keep track of all requested passenger calls, checking to ensure the shortest 
+              path for each call is made.  The elevator and the passenger classes are synchronized methods and each include error handling and processing.  The 
+              elevator object has functions to check the queue for current calls from passengers and managing the call queue.  When the thread is running, the 
+              algorithm manages the direction of the elevator based on the call queue and the elevators current floor.  When the elevator is empty and there are 
+              not any passengers the elevator defaults to idle at level 5, which can be configured to different floors.   </p>
+            <br>
+            <p>The person class manages the data for the people of the elevator, providing communication from the front end to the elevator.  The objects have 
+              classes to call the elevator and set a destination floor.  Each unique person is given a passenger ID on creation of the object.  </p>
+       <br>
+       <hr>
+       
+       <div class="row">
+            <div class="col">
+                <h4>Thanks for reading! </h4>
+                <p>Copyright &copy; 2020 &middot; All Rights Reserved &middot; <a href="index.html" >Cam Knickerbocker Designs</a></p>
+            </div>
+       </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+    <script src="js/jquery-3.4.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed --> 
+    <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap-4.4.1.js"></script>
+  </body>
+</html>

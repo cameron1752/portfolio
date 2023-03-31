@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bank Application</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+	<link href="resumeCSS.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <!--jumbotron start-->
+    <div class="jumbotron jumbotron-fluid text-center">
+        <h1 class="display-4">Bank Application</h1>
+        <p class="lead">Using Java Server Pages and Java classes to write and read from an access database, all functionality one could ask for is included in this bank web application.&nbsp; &nbsp; &nbsp;&nbsp;</p>
+        <hr class="my-4">
+        <p>Visit the github page! <a href="https://github.com/cameron1752/BankApplication" target="_blank"><img src="projects/GitHub-Mark-32px.png" alt=""></a></p> 
+    </div>
+        
+    <!--PROJECT DESCRPTION GOES HERE PLEASE-->
+    <div class="container">
+       <div class="row text-center">
+          <div class="col-lg-6 offset-lg-3">
+            <p>The bank web application includes functionality to:</p>
+            <ul>
+                <li>Validate login credentials</li>
+                <li>Create user profile</li>
+                <li>Add accounts to user profile</li>
+                <li>Deposit funds</li>
+                <li>Transfer funds</li>
+                <li>Display account details</li>
+                <li>Display transactions for user accounts</li>
+            </ul>
+            <img src="projects/bigpic-bankapp.png" style="border:solid;" alt="">
+            <br>
+            <br>
+
+            <p>The bank application was built using JSP’s and JavaBeans to read and write from the access database. I used dreamweaver and bootstrap to build the HTML and converted that to JSP syntax.  The data was stored internally in 3 tables, resposible for holding user information, account information, and transaction information.  The tables were linked together with a primary key of userID which was randomly generated when the user created their profile.  </p>
+
+            <br>
+            <img src="projects/bg-bankapp.png" style="border:solid;" alt="">
+            <br>
+            <br>
+
+            <p>To connect to the database, I used the <a href="https://www.codejava.net/java-se/jdbc/java-jdbc-example-connect-to-microsoft-access-database" target="_blank">Ucanaccess</a> library for java and added the code necessary in my functions. </p>
+            <br>
+            
+            <p>Needed to reference the library</p>
+            <pre class="line-numbers"><code style="background-color: lightgrey; border-style:solid; "class="language-java">Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");</code></pre>
+            <p>Create a connection to the database at your database path</p>
+            <pre class="line-numbers"><code style="background-color: lightgrey;border-style:solid;"class="language-java" class="language-java">connection = DriverManager.getConnection("path/database.db");</code></pre>
+            <p>Use this connection to create and execute SQL statements to interact with the database</p>
+            <p>I used Java to write a login manager class which takes the email and password from the login form and validates the user credentials in the access database.  This class creates the customer object if validated and allows the user to proceed to the web application.  The customer class is responsible for reading and writing user data from the database on launch and updating the database with any changes made by the user during their session.  The class pulls all accounts registered to the users entered email and searches for any saved transactions associated with those account numbers.  Looking back, I believe I should have used a general database manager class to make the transactions with the database more uniform across the system.</p>
+	      </div>
+       </div>
+       <br>
+       <hr>
+       <br>
+       <div class="row">
+          
+<!--          WHERE PROJECT WILL GO HOPEFULLY 		-->
+          
+       </div>
+       <br/>
+       <br/>
+       
+       <div class="row">
+          <div class="text-center col-lg-6 offset-lg-3">
+             <h4>Thanks for reading! </h4>
+             <p>Copyright &copy; 2020 &middot; All Rights Reserved &middot; <a href="index.html" >Cam Knickerbocker Designs</a></p>
+          </div>
+       </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+    <script src="js/jquery-3.4.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed --> 
+    <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap-4.4.1.js"></script>
+  </body>
+</html>

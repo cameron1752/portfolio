@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Roulette Application</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+	<link href="resumeCSS.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <!--jumbotron start-->
+    <div class="jumbotron jumbotron-fluid text-center">
+        <h1 class="display-4">Roulette Application</h1>
+        <p class="lead">Using C++ I wrote a roulette spinner class and a class to test the spinner class.&nbsp; &nbsp; &nbsp;&nbsp;</p>
+        <hr class="my-4">
+        <p>Visit the github page! <a href="https://github.com/cameron1752/RouletteApp" target="_blank"><img src="projects/GitHub-Mark-32px.png" alt=""></a></p> 
+    </div>
+        
+    <!--PROJECT DESCRPTION GOES HERE PLEASE-->
+    <div class="container">
+       <div class="row text-center">
+          <div class="col-lg-9 offset-lg-1">
+            <p>In a C++ class I took we were asked to make a roulette spinner wheel simulator.  The roulette spinner when ‘spun’ returns one number from the pool of 38 numbers.  Numbers to be returned can be 00 and 0-36 inclusive, with each number is assigned a color based on the value, assigned as follows: </p>
+            <ul>
+                <li>1-10, 19-28: odd numbers are red, even numbers are black</li>
+                <li>11-18, 29-36: odd numbers are black, even numbers are red</li>
+                <li>0, 00: green</li>
+            </ul>
+            
+            <br>
+            <br>
+
+            <p>The spin function is responsible for the overall ‘spin’ of the wheel.  We generate a random number with a seed determined by the current system time using the <time.h> library and set the result number to that value modulus 38.  With this number generated we can call additional functions to determine the color, whether it’s even, odd, or neither, and whether the number is passe or manque.</p>
+
+            <br>
+            <pre class="line-numbers"><code class="language-java"><p>Spinner::spin(){
+spinInfo SI;
+SI.theNumber = rand() % 38;
+    SI.color = getColor(SI.theNumber);
+    SI.EON = getSide(SI.theNumber);
+    SI.MPN = getType(SI.theNumber);
+}</p></code></pre>
+
+            <img src="projects/bg-roulette.png" style="border:solid;" alt="">
+            <br>
+            <br>
+
+            <p>In the header file for the Spinner class I used a struct to hold all information about the spin.  This allowed for easier manipulation of the object and values when testing the code down the line. </p>
+            <br>
+            <pre class="line-numbers"><code class="language-java"><p>struct spinInfo{
+int theNumber;
+int color; // 0 - red 1 - black 2 - green
+int EON; // Even, odd, or not 0 - even 1 - odd 2 - not
+int MPN; // Manque (1-18) Passe (19-36), or neither 0 - manque 1 - passe 2 - neither
+};</p></code></pre>
+            <p>When considering testing I tried to provide all encompassing areas of assessment.  I looked for the number distribution, testing the random number seed, the color distribution, the even and odd distribution, and the type of number distribution.  The testing class outputs the results of the test spins and the overall result of the test.  </p>
+            <br>
+            <p>The number distribution was determined by creating an array and iterating the index of the number that was spun on each spin.  Following the test spins, each of the indexes of the array are calculated into a percentage of their occurrence based on the number of test spins.  I expect the distribution to be 1/38 for each number and that was my goal, if I deviated from this value by more than .003 the function returned false for this value and the test fails.  </p>
+            <br>
+            <p>The random number test was performed by saving the first 100 numbers of the test spins in an array.  Then the function was called to create a new spinner object and spin 100 more numbers with a new random seed.  Then these numbers are checked for the same sequence of 3 digits within the sets of 100, if there were any two matching sets of numbers the test returned false.  </p>
+            <br>
+            <p>Color distribution was tested with a similar mindset as the number distribution.  I saved the distribution of colors during the test spins and compared that to an expected value.  Based on the color assignments, I can expect 18/38 of the results to be red and black, with 2/38 being green.  When determining if the actual results within an acceptable margin, I used the same .003 difference as a benchmark, returning false if outside of that bound.  For the even and odd distribution, we were able to identify the distribution of each with our saved iterations used for number distribution.  Using this against the 18/38, 18/38, and 2/38 expected values and .003 margin of error we were able to identify if this metric was successful or failed.  With the number type distribution, the structure of the functions are identical with the color distribution and even and odd distribution functions with identical expected results from the test spins.  Again, during the test spins we saved the number of each type of number and checked this against our expected value with the .003 margin of error.  The function also returns false if any of the type values are outside of this boundary.  </p>
+            <br>
+            <img src="projects/bigpic-roulette.png" style="border:solid;" alt="">  
+        </div>
+       </div>
+       <br>
+       <hr>
+       <br>
+       <div class="row">
+          
+<!--          WHERE PROJECT WILL GO HOPEFULLY 		-->
+          
+       </div>
+       <br/>
+       <br/>
+       
+       <div class="row">
+          <div class="text-center col-lg-6 offset-lg-3">
+             <h4>Thanks for reading! </h4>
+             <p>Copyright &copy; 2020 &middot; All Rights Reserved &middot; <a href="index.html" >Cam Knickerbocker Designs</a></p>
+          </div>
+       </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+    <script src="js/jquery-3.4.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed --> 
+    <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap-4.4.1.js"></script>
+  </body>
+</html>
