@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Portfolio</title>
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+<body>
+    <div>
+    <nav id="overlay" >
+        <button class="close-btn" id="close-menu"></button>
+        
+        <ul>
+            <li>
+                <a href="portB.html">home</a>
+                <span> here, you're at home</span>
+            </li>
+            <li>
+                <a href="about.html">about</a>
+                <span>its not you, its me</span>
+            </li>
+            <li>
+                <a href="projects.html">projects</a>
+                <span>do you think they keep me here becuase i'm good looking?</span>
+            </li>
+            <li>
+                <a href="contact.html">contact</a>
+                <span>drop a line</span>
+            </li>
+        </ul>
+    </nav>
+    </div>
+
+    <body>
+    <header>
+        <a href="portB.html" class = "logo" >LOGO</a>
+
+        <img src="imagesB/menu.svg" class="menu-btn" id="open-menu"> 
+    </header>
+        <div class="top"><h1>About Me</h1></div>
+    <main>
+        <div class = "balls">
+            <p>
+                I'm a student at Penn State and I study Information Science Technology.
+                I hope to graduate in the spring of 2021 and start a career in software
+                design and development. 
+            </p>
+            <p>
+                As a hobby I teach myself web development, and I would love to help you 
+                build and design your website or app. Something else that interests me is setting up and building computers,
+                networks, and any other technology that makes  life easier.   Let me help you make your life easier, give your
+                business more reach, or make your office more efficient.  
+            </p>
+                <emphasis><h3>Software & Languages</h3></emphasis>
+                <p>
+                    Microsoft Suite, Adobe XD, Adobe Photoshop, Java, Python, JavaScript, HTML, CSS, SQL, Matlab
+                </p>
+            
+        </div>
+    </main>
+
+    </body>
+    <script>
+    var overlay = document.getElementById('overlay');
+    var closeMenu = document.getElementById('close-menu');
+    var closeHome = document.getElementById('close-home');
+    var closeAbout = document.getElementById('close-about')
+
+    document.getElementById('open-menu').addEventListener('click', function(){
+        overlay.classList.remove('hide-menu');
+        overlay.classList.add('show-menu');
+    });
+
+    document.getElementById('close-menu').addEventListener('click', function(){
+        overlay.classList.remove('show-menu');
+        overlay.classList.add('hide-menu');
+    });
+    document.getElementById('close-home').addEventListener('click', function(){
+        overlay.classList.remove('show-menu');
+        overlay.classList.add('hide-menu');
+    });
+    document.getElementById('close-home').addEventListener('click', function(){
+        overlay.classList.remove('show-menu');
+        overlay.classList.add('hide-menu');
+    });
+    document.getElementById('wrapper').addEventListener('click', function(){
+        overlay.classList.add('hide-menu');
+    });
+
+</script>
+</body>
+</html>
