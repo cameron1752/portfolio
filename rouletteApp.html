@@ -17,7 +17,7 @@
         <h1 class="display-4">Roulette Application</h1>
         <p class="lead">Using C++ I wrote a roulette spinner class and a class to test the spinner class.&nbsp; &nbsp; &nbsp;&nbsp;</p>
         <hr class="my-4">
-        <p>Visit the github page! <a href="https://github.com/cameron1752/RouletteApp" target="_blank"><img src="projects/GitHub-Mark-32px.png" alt=""></a></p> 
+        <p>Visit the github page! <a href="https://github.com/cameron1752/RouletteApp" target="_blank"><img src="projects/images/GitHub-Mark-32px.png" alt=""></a></p> 
     </div>
         
     <!--PROJECT DESCRPTION GOES HERE PLEASE-->
@@ -45,7 +45,7 @@ SI.theNumber = rand() % 38;
     SI.MPN = getType(SI.theNumber);
 }</p></code></pre>
 
-            <img src="projects/bg-roulette.png" style="border:solid;" alt="">
+            <img src="projects/images/bg-roulette.png" style="border:solid;" alt="">
             <br>
             <br>
 
@@ -65,7 +65,7 @@ int MPN; // Manque (1-18) Passe (19-36), or neither 0 - manque 1 - passe 2 - nei
             <br>
             <p>Color distribution was tested with a similar mindset as the number distribution.  I saved the distribution of colors during the test spins and compared that to an expected value.  Based on the color assignments, I can expect 18/38 of the results to be red and black, with 2/38 being green.  When determining if the actual results within an acceptable margin, I used the same .003 difference as a benchmark, returning false if outside of that bound.  For the even and odd distribution, we were able to identify the distribution of each with our saved iterations used for number distribution.  Using this against the 18/38, 18/38, and 2/38 expected values and .003 margin of error we were able to identify if this metric was successful or failed.  With the number type distribution, the structure of the functions are identical with the color distribution and even and odd distribution functions with identical expected results from the test spins.  Again, during the test spins we saved the number of each type of number and checked this against our expected value with the .003 margin of error.  The function also returns false if any of the type values are outside of this boundary.  </p>
             <br>
-            <img src="projects/bigpic-roulette.png" style="border:solid;" alt="">  
+            <img src="projects/images/bigpic-roulette.png" style="border:solid;" alt="">  
         </div>
        </div>
        <br>
