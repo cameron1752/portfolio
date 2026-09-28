@@ -31,6 +31,10 @@
 	background: blue;
 }
 
+#rightColumn{
+	text-align: right;
+}
+
 .bg { 
   /* The image used */
   background-image: url("/projects/tictaktoe/screenshot.png");
