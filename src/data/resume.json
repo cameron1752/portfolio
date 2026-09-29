@@ -1,0 +1,72 @@
+{
+  "summary": "Software engineer and acting development lead with 7+ years in enterprise technology, building Java/Spring Boot microservices and high-throughput batch systems on AWS.",
+  "experience": [
+    {
+      "id": 1,
+      "company": "JP Morgan Chase & Co. – Business Credit Journey",
+      "location": "Wilmington, DE",
+      "positions": [
+        {
+          "role": "Software Engineer III (Acting Software Development Lead)",
+          "start": "Nov 2024",
+          "end": "Present",
+          "highlights": [
+            "Led a team of 5 engineers delivering 4 REST APIs and a credit score monitoring batch process serving 50k users daily.",
+            "Architected a multi-threaded batch platform processing 100k records a day in about an hour, with a custom DB locking mechanism that eliminated duplicate processing across parallel instances.",
+            "Led an AWS Graviton migration for 8 services, cutting infrastructure costs by 20%, and drove an on-prem Oracle to Aurora PostgreSQL migration with zero downtime and no data loss.",
+            "As release captain, coordinated 12 production deployments across 4 teams with zero downtime; enhanced Jenkins/Spinnaker blue-green pipelines, reducing production errors by 25%."
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "company": "United Parcel Service",
+      "location": "Remote",
+      "positions": [
+        {
+          "role": "Software Development Engineer II",
+          "start": "Jun 2022",
+          "end": "Oct 2024",
+          "highlights": [
+            "Developed Spring Boot REST APIs serving 100,000+ daily active users and 500,000+ daily requests, integrated with an Angular front end.",
+            "Implemented Auth0 authentication across the developer portal platform and resolved security vulnerabilities flagged by SonarQube.",
+            "Reduced support tickets by 75% by building an automated Postman API testing suite.",
+            "Designed and optimized Oracle SQL queries and stored procedures for enterprise performance and scalability."
+          ]
+        },
+        {
+          "role": "Business Process Engineer / Software Development Engineer I",
+          "start": "Sep 2019",
+          "end": "Jun 2022",
+          "highlights": [
+            "Automated UPS Freight processes, eliminating 1,000+ hours of manual work and earning the 2021 UPS Game Changer Award.",
+            "Transitioned into software development on the API Developer Portal, troubleshooting and improving reliability of business-critical systems."
+          ]
+        }
+      ]
+    }
+  ],
+  "education": [
+    {
+      "id": 1,
+      "school": "Penn State University",
+      "degree": "BS, Information Science and Technology",
+      "location": "Scranton, PA",
+      "start": "2017",
+      "end": "2021"
+    }
+  ],
+  "skills": [
+    { "category": "Languages", "items": ["Java", "JavaScript", "TypeScript", "Python", "HTML/CSS"] },
+    { "category": "Frameworks", "items": ["Spring Boot", "Angular"] },
+    { "category": "Cloud & DevOps", "items": ["AWS (EC2, RDS Aurora, Graviton)", "Jenkins", "Spinnaker", "OpenShift", "Azure Pipelines", "Blue-Green Deployments"] },
+    { "category": "Databases", "items": ["Oracle", "PostgreSQL (Aurora)", "Cassandra", "Stored Procedures"] },
+    { "category": "Architecture & Observability", "items": ["Microservices", "Multithreading", "Batch Processing", "Splunk", "Dynatrace"] },
+    { "category": "Developer Tools", "items": ["Git", "IntelliJ", "Postman", "VS Code", "SonarQube"] }
+  ],
+  "certifications": [
+    { "name": "Advanced Web Application Security Testing Certification", "issuer": "UPS", "year": "2023" },
+    { "name": "UPS Management Training", "issuer": "UPS", "year": "2022" }
+  ]
+}
