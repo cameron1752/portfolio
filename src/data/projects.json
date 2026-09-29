@@ -1,0 +1,379 @@
+[
+  {
+    "id": 1,
+    "slug": "weather-predictor",
+    "title": "Distributed Weather Forecasting Network",
+    "description": "An experimental neural network, built from scratch and trained across distributed workers, that forecasts the next 24 hours of temperature.",
+    "tech": [
+      "Java",
+      "PostgreSQL",
+      "Docker",
+      "Neural Networks"
+    ],
+    "link": "https://github.com/cameron1752/simulation/blob/main/src/main/java/org/example/neuralnet/WeatherPredicter.java",
+    "image": "/weather-architecture.svg",
+    "details": {
+      "overview": "An experimental temperature forecaster: given the past 48 hours of weather at a location, a neural network written from scratch predicts the temperature for each of the next 24 hours. Training runs across a coordinator and four worker containers that train on separate slices of the data and periodically merge what they've learned. I wanted to take what I learned building my digit classifier and expand on it, and weather seemed like the natural next step. As it turned out, forecasting weather is a very difficult problem: about 60% of the model's hourly forecasts landed within 3°F of the actual temperature, with lower accuracy in areas where temperatures swing more widely over a day.",
+      "sections": [
+        {
+          "heading": "How it works",
+          "body": "Weather model data arrives as GRIB files, which I read with NetCDF-Java, convert to Fahrenheit, hPa, and millimeters, and stream into PostgreSQL using COPY through a staging table. A transactional cutover then deduplicates overlapping files and rebuilds the table's unique constraint after the bulk insert, rolling back cleanly if anything fails. Each training example is a sliding window of the past 48 hours of temperature, precipitation, and pressure, plus the location and the hour and day of year encoded as sine and cosine pairs, so the network understands that 11 PM is next to midnight and December is next to January. The target is the next 24 hourly temperatures. Each location's history is split chronologically, 85% for training and 15% for testing, so the model is always evaluated on a future it hasn't seen. Because the dataset is too large for memory, it's read in pages, and feature scaling statistics are computed incrementally with Welford's algorithm. The network has four layers using leaky ReLU and He initialization, trained with backpropagation. Docker Compose runs a coordinator and four workers: each worker trains on its own quarter of the data and uploads its weights to PostgreSQL, the coordinator averages them once every worker has reported, and the workers pull the averaged model and continue. Results are measured as mean absolute error at 1, 6, 12, and 24 hours ahead, compared against a persistence baseline that assumes each hour will match the same hour the day before."
+        },
+        {
+          "heading": "Challenges",
+          "body": "One of the biggest challenges was managing that much data responsibly and efficiently. The dataset was about 20 GB of hourly weather data spanning roughly 32 months, nearly 200 million rows, and handling it without locking up my computer or running out of memory was a challenge I didn't expect going in. Streaming the data into PostgreSQL, reading it back in pages, and computing scaling statistics incrementally all came out of that. Containerizing the training was harder than it needed to be, because I hadn't designed for it from the start. I had to retrofit distributed training onto a neural network that wasn't built for it, and add mechanisms to average weights, share the scaler values, and coordinate all the training instances. It was a great hands-on exercise in distributed programming, and a lesson in designing for scale up front."
+        },
+        {
+          "heading": "What I'd do differently",
+          "body": "I'd narrow the area I'm training on. Right now, the data covers a large portion of the eastern United States along with a large stretch of the Atlantic Ocean. Ocean temperatures barely change over the course of a day, and with so many ocean grid points in the data, I think they skew the network toward predicting small, smooth changes, which is at least partly to blame for its lower accuracy over land. Training on land only, or giving land and ocean their own models, would let the network focus on the harder, more variable cases."
+        }
+      ],
+      "screenshots": [
+        "/weather-predictor-logs.png"
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "slug": "stoop",
+    "title": "Stoop",
+    "description": "A location-based short-video app, blending TikTok's format with Yik Yak's hyperlocal feed.",
+    "tech": [
+      "Java",
+      "Spring Boot",
+      "React",
+      "PostgreSQL",
+      "OAuth"
+    ],
+    "link": "https://github.com/cameron1752/curvy-dolphin",
+    "image": "/curvy-dolphin-interactions-flow.gif",
+    "details": {
+      "overview": "A short-video app built around a custom, location-based feed algorithm. Yik Yak was wildly popular at its peak, and TikTok has proven how compelling short-form video can be. I wanted to explore a focused combination of the two: a feed that shows you what people nearby are posting, rather than one personalized around your individual tastes. I think a hyperlocal version could find a real audience, especially in cities.",
+      "sections": [
+        {
+          "heading": "How it works",
+          "body": "The app is built with a React frontend and a Spring Boot backend on PostgreSQL, with OAuth handling authentication. Every video's ranking starts with a proximity score: the closer a video was posted to you, the higher its base score. That base score is then multiplied by an engagement rate that weights interactions by how much intent they signal: watches count 2x, likes 4x, comments 5x, and shares 8x, while skips subtract 5x. A share means someone cared enough to pass a video along, so it counts four times as much as a passive watch, and a skip is a strong enough negative signal to pull a video down. A completion-rate boost rewards videos people actually watch to the end, and a simple linear time decay gradually lowers scores as videos age. Because proximity scales everything else, a moderately popular video down the street can outrank a viral one across town, which is the whole point of a local feed. Location scoring is handled in Java, which made it easier to experiment with and fine-tune how distance shapes the feed. The data model covers users, videos, comments, likes, and interactions, with relationships between them feeding the ranking."
+        },
+        {
+          "heading": "Challenges",
+          "body": "Tuning the algorithm was the hardest part. Small changes to the weights changed the feel of the feed dramatically, and balancing engagement against proximity took a lot of iteration. It was also my most data-intensive project: I tested the feed with a few thousand interactions across about a hundred videos, with every view, like, comment, share, and skip generating data the ranking depends on."
+        },
+        {
+          "heading": "What I'd do differently",
+          "body": "Next, I'd make the search radius adapt to population density. In a smaller city like Scranton, you'd want to pull from a wide area to keep the feed full, but in New York City, the feed should be mostly neighborhood-specific, with occasional borough-wide videos mixed in. I'd also replace the linear time decay with a curve that keeps new videos near the top for their first few hours, then drops them off faster, which better matches how quickly local content goes stale. To keep the feed fresh, I'd exclude videos a user has already seen. At scale, I'd move the location filtering into the database with PostGIS, so nearby videos can be found with spatial indexes instead of being filtered in application code."
+        }
+      ],
+      "screenshots": [
+        "/curvy-dolphin-login-flow.gif"
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "slug": "n-body-simulator",
+    "demo": "nbody",
+    "demoTagline": "Launch your own planet into a solar system.",
+    "title": "N-Body Solar System Simulator",
+    "description": "A 3D gravity simulator with procedurally generated planets, built in Java with jMonkeyEngine.",
+    "tech": [
+      "Java",
+      "jMonkeyEngine"
+    ],
+    "link": "https://github.com/cameron1752/simulation/tree/main/src/main/java/org/example/nbodyproblem",
+    "image": "/bg-n-body.gif",
+    "details": {
+      "overview": "A 3D simulation of the n-body problem, where every planet, moon, and star pulls on every other body at once. Each run generates a unique solar system, with planet surfaces created entirely from procedural noise. I've had a passion for physics and astronomy since high school, and the n-body problem has always been interesting to me.  I wanted the opportunity to generate my own solar systems to better understand how everything interacts.",
+      "sections": [
+        {
+          "heading": "How it works",
+          "body": "Every frame, each body calculates the gravitational pull of every other body in the system, updates its velocity, and then moves, so moons, neighboring planets, and even the star all influence one another. To start each system in stable orbits, the simulation calculates each planet's circular orbital speed from the star's mass and its distance, and moons inherit their planet's velocity plus their own orbit around it. Planet surfaces are generated entirely in code, with no image assets: fractal noise shapes continents, oceans, ice, deserts, lava flows, and gas giant bands, while Worley noise carves craters into moons, and stars get randomized colors, granulation, and sunspots. Users can pause, speed up or slow down time, click any body to inspect it in a live preview window, and scroll to zoom toward whatever is under the cursor. Eight scenarios range from a scaled-down version of our solar system to binary stars and a rogue planet crashing through an established system."
+        },
+        {
+          "heading": "Challenges",
+          "body": "There were two main challenges with this project: tuning masses and distances, and generating the procedural textures. The relationships between body masses and distances were far more delicate than I expected going in. The n-body problem is famously chaotic, meaning tiny changes in a body's mass or starting position can lead to completely different outcomes. It took a lot of experimentation to find stable configurations, and even those can eventually break down, with bodies drifting out of orbit or getting flung out of the system. The procedural textures were also incredibly difficult. I'd never attempted anything like them before, and they turned into a huge learning experience."
+        },
+        {
+          "heading": "What I'd do differently",
+          "body": "Moving forward, I'd like to add collision handling. Right now, because gravitational force grows with the inverse square of distance, two planets that get too close experience enormous forces and slingshot off in different directions. I'd like to implement realistic collisions where bodies merge, conserving mass and momentum."
+        }
+      ],
+      "screenshots": []
+    }
+  },
+  {
+    "id": 4,
+    "slug": "elevator-simulator",
+    "demo": "elevator",
+    "demoTagline": "Pit two dispatch algorithms against the same rush hour.",
+    "title": "Elevator Dispatch Simulator",
+    "description": "A multithreaded 3D simulation of a six-elevator building, built to design and measure dispatch algorithms.",
+    "tech": [
+      "Java",
+      "jMonkeyEngine",
+      "Multithreading"
+    ],
+    "link": "https://github.com/cameron1752/simulation/tree/main/src/main/java/org/example/elevator",
+    "image": "/bg-elevator.png",
+    "details": {
+      "overview": "A 3D simulation of a 20-floor building with six elevators, built to explore how elevator dispatch actually works. Randomly generated riders call elevators throughout the building, and the simulation measures how long they wait, making it possible to compare dispatch strategies with real numbers. I was inspired to build it after an elevator in my building was down for repairs for a few months. Riding the remaining ones every day got me thinking about dispatch algorithms and what makes them efficient.",
+      "sections": [
+        {
+          "heading": "How it works",
+          "body": "Each elevator runs as a simple state machine, moving up, moving down, sitting idle, or opening its doors for a set time at each stop. When a rider calls an elevator, the dispatcher scores every car by its distance from the rider plus the number of stops already in its queue. Cars that are idle, or already heading in the rider's direction without having passed their floor, get priority; if none qualify, the closest car is used as a fallback. When a car picks up a new request along its route, its stops are re-sorted in its direction of travel, so it doesn't zigzag between floors. Idle cars alternate between parking at the lobby and the middle of the building, keeping one nearby wherever calls come from. A background thread keeps the building populated with up to 50 riders at a time, and the simulation tracks completed trips along with average, longest, and shortest wait times across repeated runs. A feature flag makes it easy to swap in an alternate dispatch algorithm and compare the two."
+        },
+        {
+          "heading": "Challenges",
+          "body": "The hardest part was the dispatch algorithm itself. My first handcrafted version proved inefficient: riders were waiting for vast periods of time, floors were getting skipped, and people were being dropped off in the wrong order. That sent me into researching how real dispatch systems work, and the ideas I brought back, like only assigning cars already heading toward the rider and penalizing cars with long queues, became the cost-based dispatcher the simulation uses now."
+        },
+        {
+          "heading": "What I'd do differently",
+          "body": "Beyond animating the passengers, I'd like to put the metrics the simulation already collects to fuller use by running a real side-by-side comparison between the algorithm I wrote from scratch and established approaches like destination dispatch, using the same rider traffic for each so the wait times are directly comparable."
+        }
+      ],
+      "screenshots": [
+        "/elevator.gif"
+      ]
+    }
+  },
+  {
+    "id": 5,
+    "slug": "smart-rockets",
+    "demo": "rockets",
+    "demoTagline": "Watch rockets learn to fly, then move the target on them.",
+    "title": "Smart Rockets: Neuroevolution",
+    "description": "Rockets controlled by neural networks learn to fly to a target, with their brains evolved by a genetic algorithm.",
+    "tech": [
+      "Java",
+      "jMonkeyEngine",
+      "Neural Networks",
+      "Genetic Algorithms"
+    ],
+    "link": "https://github.com/cameron1752/simulation/blob/main/src/main/java/org/example/ai/RocketSimulation.java",
+    "image": "/bg-smart-rockets.gif",
+    "details": {
+      "overview": "A population of 10,000 rockets learns to fly to a target with no instructions on how to do it. Each rocket is steered by its own small neural network, and instead of training those networks with traditional backpropagation, a genetic algorithm evolves them: the rockets that get closest pass their networks on to the next generation. This was directly inspired by my earlier genetic algorithm project. Instead of watching characters change, I wanted to see something learn a behavior over time. I also wanted to go beyond the traditional smart rockets example, where each rocket evolves a fixed list of thrusts and essentially memorizes a path. Giving each rocket a neural network means it evolves a brain that reacts to where the target is.",
+      "sections": [
+        {
+          "heading": "How it works",
+          "body": "Each rocket has a two-layer neural network that takes five inputs, the direction to the target, its current velocity, and its distance, and outputs how much to thrust horizontally and vertically. The network's 50 weights and biases are the rocket's DNA. Every generation, 10,000 rockets launch and get 200 frames to reach the target, with thrust and speed capped so they have to learn to steer and slow down rather than just fly straight. Fitness is based on the inverse square of each rocket's final distance, and rockets are added to a mating pool in proportion to their fitness, with direct hits weighted three times as heavily. The top 100 rockets are carried into the next generation unchanged so the best solutions are never lost. The rest are bred from the mating pool: crossover splits the parents' weights at a layer boundary so each part of the network comes intact from one parent, and mutation nudges a small fraction of weights by a random amount. The best weights from each generation are saved to a file, so a trained population can be reloaded later."
+        },
+        {
+          "heading": "Challenges",
+          "body": "The hardest part was deciding what each rocket's brain should be able to see. The network only knows what its inputs tell it, so I had to choose information that would let a rocket make good decisions: the direction to the target, its own velocity, and its distance, each normalized to a similar range so no single input would overwhelm the others. Giving a rocket too little information meant it couldn't learn to steer, while getting the scaling wrong made learning slow or unstable."
+        },
+        {
+          "heading": "What I'd do differently",
+          "body": "I'd add adaptive mutation, with higher-fitness rockets mutating less than lower-fitness ones so strong networks aren't disrupted. I'd also move the target to a new location each generation. Rockets that memorized a path would fail, while rockets whose networks truly learned to steer would still hit it, which would prove the adaptability that sets this approach apart. Adding obstacles along the path would be another great test."
+        }
+      ],
+      "screenshots": []
+    }
+  },
+  {
+    "id": 6,
+    "slug": "digit-classifier",
+    "demo": "digits",
+    "demoTagline": "Draw a digit and see what the neural network guesses.",
+    "title": "Handwritten Digit Classifier",
+    "description": "A neural network built from scratch in Java, with no ML libraries, that recognizes handwritten digits as you draw them.",
+    "tech": [
+      "Java",
+      "Neural Networks",
+      "Java Swing"
+    ],
+    "link": "https://github.com/cameron1752/simulation/blob/main/src/main/java/org/example/neuralnet/Classifier.java",
+    "image": "/bg-digit-classifier.gif",
+    "details": {
+      "overview": "A neural network written entirely from scratch, with no machine learning libraries, trained to recognize handwritten digits. It reaches about 90% accuracy on the EMNIST test set, and a drawing canvas lets you sketch a digit with your mouse and watch the network classify it in real time. I wanted to work with machine learning, but instead of using a library, I wanted to understand what was really happening under the hood.",
+      "sections": [
+        {
+          "heading": "How it works",
+          "body": "Each 28x28 image is flattened into 784 inputs, which pass through a hidden layer of 30 neurons to 10 outputs, one per digit, using sigmoid activations. The network learns with backpropagation and mini-batch stochastic gradient descent: for each small batch of images, it measures how far its outputs are from the correct answer, works backward through the layers to calculate how much each weight contributed to the error, and nudges every weight in the direction that reduces it. Training data comes from EMNIST, which I load by parsing the dataset's raw binary files directly, normalizing pixel values and correcting for EMNIST's transposed image format. Once trained, the weights are saved to a file so the network can be reloaded instantly. The drawing canvas scales your sketch down to 28x28 pixels and classifies it after every stroke."
+        },
+        {
+          "heading": "Challenges",
+          "body": "The hardest part was backpropagation. The forward pass, inputs flowing through layers of weights and activations, made sense fairly quickly, but working out how the error at the output translates into a correction for every individual weight took much longer. I read and re-read the sections of the textbooks I was following, and eventually wrote the math out by hand, tracing the chain rule back through each layer until it clicked."
+        },
+        {
+          "heading": "What I'd do differently",
+          "body": "I'd improve the drawing canvas so it centers and scales each digit before classifying it. EMNIST digits are consistently centered and sized, while a mouse drawing can land anywhere on the canvas at any size, so preprocessing drawings to match the training data would bring real-world accuracy closer to the test set results."
+        }
+      ],
+      "screenshots": []
+    }
+  },
+  {
+    "id": 7,
+    "slug": "network-monitor",
+    "title": "Network Uptime Monitor",
+    "description": "Project that monitors network uptime and downtime, with desktop GUI and CLI options available",
+    "tech": [
+      "Java",
+      "Java Swing"
+    ],
+    "link": "https://github.com/cameron1752/cautious-invention",
+    "image": "/bg-cautious-invention.png",
+    "details": {
+      "overview": "This Java project was built to simply monitor and log when my internet went down.  This approach was necessary because when there was an outage it wasn't always shown in my router's UI, and I wanted a form of proof that I could show my landlord.  I was living in an apartment building where all the utilities were managed by the landlord, and when I brought up concerns about the internet intermittently cutting out the utility company came to inspect the issue.  When they arrived and did their inspection, nothing out of the ordinary was found, and my complaint was dismissed.  This continued to happen, and when I brought my concerns up again with building management little was done.  Unfortunately, it wasn't until I built this project out to monitor and log my findings that my complaints were taken seriously.",
+      "sections": [
+        {
+          "heading": "How it works",
+          "body": "When the code runs, it registers 4 server objects for determining the network status.  The server object has a ping method, which is responsible for taking the IP Address and attempting to ping it with a given timeout, defaulting to 5000 ms.  With a successful ping we log to the log.txt file; with an unsuccessful ping we log in log.txt and update the status.txt file with the timestamp, failed IP, and the elapsed time. The UI sets isRunning to true with the button 'Start Monitoring' and sets it to false with 'Stop Monitoring'.  When running, the program then periodically runs the ping method for each server object.  The CLI version of the application is an auto-running version of this without a GUI, still writing to the same log files."
+        },
+        {
+          "heading": "Challenges",
+          "body": "The biggest challenge with this project was making it seem legitimate so that my landlord and the utility company would believe that this data wasn't made up and arbitrary.  Formatting my logs with timestamps and real time data helped with the legitimacy of the project."
+        },
+        {
+          "heading": "What I'd do differently",
+          "body": "If I were making this today, I would make the UI take a dynamic list of Server objects, with functionality to add new ones via the UI.  I would also just make the UI read from the log file, so you could launch the CLI instance and then the UI, removing the need for both versions."
+        }
+      ],
+      "screenshots": [
+        "/cautious-invention-logs.png",
+        "/cautious-invention-status-logs.png"
+      ]
+    }
+  },
+  {
+    "id": 8,
+    "slug": "biy-finance",
+    "title": "BIY Finance App",
+    "description": "A full-stack personal finance app for tracking transactions, bills, and income, built with Spring Boot, React, and PostgreSQL.",
+    "tech": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "OAuth"
+    ],
+    "link": "https://github.com/cameron1752/BIY-finance-app-experience",
+    "image": "/biy-finance-home.png",
+    "details": {
+      "overview": "A full-stack finance application where users sign in with OAuth and track their transactions, bills, and income. I built it to sharpen my React skills and get hands-on experience implementing OAuth end to end, pairing a Spring Boot backend with a React frontend on top of a PostgreSQL database.",
+      "sections": [
+        {
+          "heading": "How it works",
+          "body": "Users authenticate through OAuth with GitHub, and every transaction, bill, and income entry is saved to their account. On the backend, requests flow through a layered architecture: controllers, then services, then a data service layer, then repositories. Each resource has its own dedicated controller and service class, which keeps responsibilities narrow and makes each piece easy to find and test. Entities are persisted with Spring Data JPA repositories backed by PostgreSQL."
+        },
+        {
+          "heading": "Challenges",
+          "body": "React was the most challenging part of the project. Wiring OAuth into the frontend flow and keeping the UI in sync as users added and updated transactions and income took real work, and getting the interface to look the way I wanted was harder than I expected. It was a great learning opportunity and a solid refresher on modern React."
+        },
+        {
+          "heading": "What I'd do differently",
+          "body": "Since I built this primarily to learn, I focused on functionality over design, and the frontend layout ended up feeling generic. Next time, I'd start with a custom design and build the interface around it, so the app feels as deliberate on the front end as it is on the back end."
+        }
+      ],
+      "screenshots": [
+        "/biy-finance-oAuth.png",
+        "/biy-finance-.png"
+      ]
+    }
+  },
+  {
+    "id": 9,
+    "slug": "genetic-algorithm",
+    "demo": "genetic",
+    "demoTagline": "Type a phrase and watch random text evolve into it.",
+    "title": "Evolving Text with a Genetic Algorithm",
+    "description": "A genetic algorithm that evolves random strings into a target phrase through selection, crossover, and mutation.",
+    "tech": [
+      "Java",
+      "Genetic Algorithms"
+    ],
+    "link": "https://github.com/cameron1752/simulation/blob/main/src/main/java/org/example/ai/TheAi.java",
+    "image": "/bg-genetic-algorithm.gif",
+    "details": {
+      "overview": "A genetic algorithm that starts with a population of completely random strings and evolves them, generation by generation, into a target phrase. It's a take on the infinite monkey theorem: for a 31-character phrase, there are roughly 10^60 possible strings, so random guessing would essentially never find it, but natural selection gets there in ~200 generations. I wanted to explore AI and machine learning a bit more, and I followed a textbook example to get started on genetic algorithms.",
+      "sections": [
+        {
+          "heading": "How it works",
+          "body": "Each generation starts with a population of 1,000 strings, each the same length as the target and built from about 90 possible characters. Every string is scored by how many of its characters match the target in the right position. Those scores decide who reproduces: each string is added to a mating pool in proportion to its fitness, with an extra boost for strings above 75%, so the strongest candidates are far more likely to be chosen as parents. Pairs of parents are combined at a random crossover point to create a child, and each character in the child has a 2% chance of mutating into a random one, which keeps new variation flowing into the population. The cycle repeats until a string matches the target exactly, while the simulation tracks the generation count, elapsed time, best string so far, and average fitness."
+        },
+        {
+          "heading": "Challenges",
+          "body": "The main challenge was wrapping my head around the genetic side of the algorithm. The idea of DNA instances being added to a mating pool and producing children that inherit their parents' traits was abstract until I saw it in action. Watching the best string improve generation by generation, going from random gibberish to the target phrase, is what made it click."
+        },
+        {
+          "heading": "What I'd do differently",
+          "body": "Next time, I'd implement adaptive mutation, which I started but never wired in: strings with high fitness would mutate less often, so strong candidates aren't randomly damaged, while weak ones mutate more to keep exploring. I'd also add elitism, carrying the best string from each generation forward unchanged so progress is never lost. Both should reduce the number of generations needed to reach the target."
+        }
+      ],
+      "screenshots": []
+    }
+  },
+  {
+    "id": 10,
+    "title": "Better Spotify Wrapped",
+    "description": "Creates a different (better) version of spotify wrapped using export data from spotify",
+    "tech": [
+      "Java",
+      "Java Swing"
+    ],
+    "link": "https://github.com/cameron1752/BetterSpotifyWrapped",
+    "image": "/bg-better-wrapped.png"
+  },
+  {
+    "id": 11,
+    "slug": "delivery-sim",
+    "title": "Delivery Driver Simulator",
+    "description": "An arcade-style delivery game built from scratch in Java Swing.",
+    "tech": [
+      "Java",
+      "Java Swing"
+    ],
+    "link": "https://github.com/cameron1752/bookish-bassoon",
+    "image": "/delivery-sim-example.gif",
+    "details": {
+      "overview": "A top-down arcade game built in Java Swing to learn the fundamentals of game development: a game loop, sprite rendering, collision detection, and difficulty that ramps up as you play. I built everything from scratch, including drawing the sprite artwork myself.",
+      "sections": [
+        {
+          "heading": "How it works",
+          "body": "You're a delivery driver who has to navigate the world and collect packages while avoiding obstacles. As you collect packages, things get a little quicker and more obstacles block your path. Luckily, you've got rockets to clear obstacles out of the road so you can make your deliveries on time. Under the hood, the game loop lives in the Road class, which handles sprite drawing and movement, collision detection, and score tracking. Package and obstacle speeds are controlled in their sprite classes, both scaling with how many packages have been collected. A limited number of packages and obstacles are randomly generated at the start of each playthrough."
+        },
+        {
+          "heading": "Challenges",
+          "body": "A big challenge for me was creating the artwork for the sprites. It definitely took me out of my comfort zone."
+        },
+        {
+          "heading": "What I'd do differently",
+          "body": "If I were remaking this game, I'd use an actual 2D game engine instead of Swing. I'd also generate packages and obstacles continuously so you could theoretically play forever, and limit the number of rockets to keep it challenging. As it's designed now, once all the pre-generated packages and obstacles are used up, the game keeps running on an empty road."
+        }
+      ],
+      "screenshots": [
+        "/bg-delivery-sim.png",
+        "/game-over-delivery-sim.png"
+      ]
+    }
+  },
+  {
+    "id": 12,
+    "slug": "sort-visualizer",
+    "demo": "sorting",
+    "demoTagline": "Watch four sorting algorithms work, step by step.",
+    "title": "Sorting Algorithm Visualizer",
+    "description": "A Python app that animates bubble, selection, quick, and merge sort step by step.",
+    "tech": [
+      "Python",
+      "Tkinter"
+    ],
+    "link": "https://github.com/cameron1752/sorter",
+    "image": "/bg-sorter.png",
+    "details": {
+      "overview": "A desktop app that visualizes how sorting algorithms work by animating every comparison and swap. Pick an algorithm and a speed, generate a random array, and watch it get sorted bar by bar. I wanted to gain a deeper understanding of different sort algorithms and python.",
+      "sections": [
+        {
+          "heading": "How it works",
+          "body": "The app generates a random array and draws each value as a bar, scaled to fit the canvas. It supports four algorithms: bubble sort, selection sort, quick sort, and merge sort. Each one redraws the array after every swap or write, highlighting the bars being compared, so you can see the difference between bubble sort's slow, steady passes and quick sort's divide-and-conquer partitioning. A speed setting controls the delay between steps, from slow enough to follow each comparison to real time, and the array size can be set from the command line. When a sort finishes, a check verifies the array is actually in order."
+        }
+      ],
+      "screenshots": [
+        "/merge_sort.gif",
+        "/quick_sort.gif",
+        "/selection_sort.gif",
+        "/bubble_sort.gif"
+      ]
+    }
+  }
+]
