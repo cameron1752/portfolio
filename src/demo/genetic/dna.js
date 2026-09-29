@@ -1,4 +1,4 @@
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,'!?";
+export const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,'!?";
 const MUTATION_RATE = 0.01;
 
 const randomChar = () => CHARS[Math.floor(Math.random() * CHARS.length)];

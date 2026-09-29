@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 
 const GITHUB_PROFILE = 'https://github.com/cameron1752';
 
-export default function ProjectCard({ slug, title, description, tech = [], link, image, details }) {
+export default function ProjectCard({ slug, title, description, tech = [], link, image, details, demo }) {
   const hasDetails = Boolean(slug && details?.overview);
 
   const linkProps = hasDetails
@@ -30,12 +30,22 @@ export default function ProjectCard({ slug, title, description, tech = [], link,
           justifyContent: 'flex-start',
         }}
       >
-        <CardMedia
-          component="img"
-          image={image}
-          alt={title}
-          sx={{ height: 194, objectFit: 'cover', flexShrink: 0 }}
-        />
+        <Box sx={{ position: 'relative', flexShrink: 0 }}>
+          <CardMedia
+            component="img"
+            image={image}
+            alt={title}
+            sx={{ height: 194, objectFit: 'cover' }}
+          />
+          {demo && (
+            <Chip
+              label="▶ Try it live"
+              color="secondary"
+              size="small"
+              sx={{ position: 'absolute', top: 12, right: 12, fontWeight: 600, boxShadow: 2 }}
+            />
+          )}
+        </Box>
         <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
           <Box sx={{ mt: 'auto', mb: 2 }}>
             <Typography gutterBottom variant="h5" component="div">

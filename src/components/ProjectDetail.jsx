@@ -7,14 +7,42 @@ import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import projects from '../data/projects.json';
+import GeneticDemo from '../demo/genetic/GeneticDemo';
+import SortVisualizer from '../demo/sort/SortVisualizer';
+import DigitDemo from '../demo/classifier/DigitDemo';
+import RocketDemo from '../demo/rockets/RocketDemo';
+import ElevatorDemo from '../demo/elevator/ElevatorDemo';
+import NBodyDemo from '../demo/nbody/NBodyDemo';
+
+import { useLocation } from 'react-router';
+const DEMOS = {
+  genetic: GeneticDemo,
+  sorting: SortVisualizer,
+  digits: DigitDemo,
+  rockets: RocketDemo,
+  elevator: ElevatorDemo,
+  nbody: NBodyDemo
+};
 
 export default function ProjectDetail() {
   const { slug } = useParams();
   const project = projects.find(p => p.slug === slug);
 
-  useEffect(() => {
+
+// inside the component:
+const location = useLocation();
+
+useEffect(() => {
+  if (!location.hash) {
     window.scrollTo(0, 0);
-  }, [slug]);
+    return;
+  }
+  // wait a moment so the page has rendered before scrolling
+  const timer = setTimeout(() => {
+    document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+  return () => clearTimeout(timer);
+}, [slug, location.hash]);
 
   if (!project || !project.details) {
     return (
@@ -26,6 +54,8 @@ export default function ProjectDetail() {
   }
 
   const { title, tech = [], link, image, details } = project;
+
+  const Demo = DEMOS[project.demo];
 
   return (
     <Box component="article" sx={{ py: 4, maxWidth: 800, mx: 'auto' }}>
@@ -56,6 +86,13 @@ export default function ProjectDetail() {
         <Box key={src} component="img" src={src} alt={`${title} screenshot`}
           sx={{ width: '100%', borderRadius: 2, mb: 2 }} />
       ))}
+
+      {Demo && (
+        <Box id="demo" sx={{ mb: 4 }}>
+          <Typography variant="h5" sx={{ mb: 2 }}>Try it yourself</Typography>
+          <Demo />
+        </Box>
+      )}
 
       <Button variant="contained" href={link} target="_blank" rel="noopener noreferrer">
         View on GitHub

@@ -71,6 +71,8 @@
   {
     "id": 3,
     "slug": "n-body-simulator",
+    "demo": "nbody",
+    "demoTagline": "Launch your own planet into a solar system.",
     "title": "N-Body Solar System Simulator",
     "description": "A 3D gravity simulator with procedurally generated planets, built in Java with jMonkeyEngine.",
     "tech": [
@@ -101,6 +103,8 @@
   {
     "id": 4,
     "slug": "elevator-simulator",
+    "demo": "elevator",
+    "demoTagline": "Pit two dispatch algorithms against the same rush hour.",
     "title": "Elevator Dispatch Simulator",
     "description": "A multithreaded 3D simulation of a six-elevator building, built to design and measure dispatch algorithms.",
     "tech": [
@@ -134,6 +138,8 @@
   {
     "id": 5,
     "slug": "smart-rockets",
+    "demo": "rockets",
+    "demoTagline": "Watch rockets learn to fly, then move the target on them.",
     "title": "Smart Rockets: Neuroevolution",
     "description": "Rockets controlled by neural networks learn to fly to a target, with their brains evolved by a genetic algorithm.",
     "tech": [
@@ -166,6 +172,8 @@
   {
     "id": 6,
     "slug": "digit-classifier",
+    "demo": "digits",
+    "demoTagline": "Draw a digit and see what the neural network guesses.",
     "title": "Handwritten Digit Classifier",
     "description": "A neural network built from scratch in Java, with no ML libraries, that recognizes handwritten digits as you draw them.",
     "tech": [
@@ -266,6 +274,8 @@
   {
     "id": 9,
     "slug": "genetic-algorithm",
+    "demo": "genetic",
+    "demoTagline": "Type a phrase and watch random text evolve into it.",
     "title": "Evolving Text with a Genetic Algorithm",
     "description": "A genetic algorithm that evolves random strings into a target phrase through selection, crossover, and mutation.",
     "tech": [
@@ -340,6 +350,8 @@
   {
     "id": 12,
     "slug": "sort-visualizer",
+    "demo": "sorting",
+    "demoTagline": "Watch four sorting algorithms work, step by step.",
     "title": "Sorting Algorithm Visualizer",
     "description": "A Python app that animates bubble, selection, quick, and merge sort step by step.",
     "tech": [
